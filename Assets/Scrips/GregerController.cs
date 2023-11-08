@@ -44,6 +44,9 @@ public class GregerController : MonoBehaviour
     [SerializeField]
     float portalCoin = 5;
 
+    [SerializeField]
+    GameObject portal;
+
     void Awake()
     {
         hp = hpMax;
@@ -75,25 +78,11 @@ public class GregerController : MonoBehaviour
             hasRelesedJumpedButton = true;
         }
 
-        if (coins == portalCoin)
-        {
-            //spawna portal
-        }
-
-        if (transform.position.x > Camera.main.orthographicSize - 1)
-        {
-            //scen bytte
-        }
-
         if (hp <= 0)
         {
             GameObject.Destroy(this.gameObject);
         }
 
-        if (coins >= portalCoin)
-        {
-            
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -110,6 +99,12 @@ public class GregerController : MonoBehaviour
         {
             ++coins;
             updateCoinsToGet();
+        }
+
+        if (other.gameObject.tag == "Portal" && coins >= portalCoin)
+        {
+            print("Hello there");
+            SceneManager.LoadScene(1);
         }
     }
     private void updateHealthSlider()
